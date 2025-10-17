@@ -1,4 +1,4 @@
-# 🎟️ QR-Based Event Management System (Frontend Only)
+# 🎟️ QR-Based Event Management System
 
 ## 📖 Overview
 The **QR-Based Event Management System (Frontend)** is an interactive web application designed to simplify event organization through personalized QR invitations and a modern admin dashboard.  
