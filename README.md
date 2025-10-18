@@ -77,7 +77,7 @@ Three UI screens designed (based on Figma prototype):
 
 ## 🧩 Project Structure
 
-
+```
 QR-Event-Management-Frontend/
 ├── public/
 │   ├── assets/
@@ -95,6 +95,7 @@ QR-Event-Management-Frontend/
 ├── tailwind.config.js
 ├── README.md
 └── .gitignore
+```
 
 ---
 
