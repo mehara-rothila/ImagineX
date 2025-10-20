@@ -127,8 +127,6 @@ export function EventCalendar({ open, onOpenChange }: { open: boolean; onOpenCha
                           `}
                         >
                           {event.name}
-                          {event.type === "upcoming" && <span className="ml-1 text-[10px] font-semibold">Upcoming</span>}
-                          {event.type === "ended" && <span className="ml-1 text-[10px] font-semibold">Ended</span>}
                         </span>
                       ))}
                     </>
@@ -136,6 +134,17 @@ export function EventCalendar({ open, onOpenChange }: { open: boolean; onOpenCha
                 </div>
               );
             })}
+          </div>
+          {/* Legend */}
+          <div className="flex items-center justify-center gap-6 mt-2 text-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded bg-green-100 border border-green-300"></div>
+              <span className="text-gray-700">Upcoming Event</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded bg-gray-200 border border-gray-300"></div>
+              <span className="text-gray-700">Ended Event</span>
+            </div>
           </div>
         </div>
         <DialogClose asChild>
