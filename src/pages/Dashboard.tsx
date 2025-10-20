@@ -1,8 +1,13 @@
+
+import { useState } from "react";
 import { Calendar, Clock, History, TrendingUp } from "lucide-react";
 import { EventStatCard } from "../components/EventStatCard";
+import { CreateEventForm } from "../components/CreateEventForm";
+import { EventCalendar } from "../components/EventCalendar";
 import heroBanner from "../assets/hero-banner.jpg";
-
 export default function Dashboard() {
+  const [open, setOpen] = useState(false);
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const stats = [
     {
       title: "Upcoming Events",
@@ -36,6 +41,8 @@ export default function Dashboard() {
 
   return (
     <div className="flex-1 overflow-auto">
+      <CreateEventForm open={open} onOpenChange={setOpen} />
+      <EventCalendar open={calendarOpen} onOpenChange={setCalendarOpen} />
       <div className="p-6 space-y-6">
         {/* Hero Banner */}
         <div className="relative h-64 rounded-2xl overflow-hidden shadow-2xl">
@@ -53,10 +60,16 @@ export default function Dashboard() {
                 Your premier event management dashboard. Create unforgettable experiences.
               </p>
               <div className="flex gap-3">
-                <button className="px-6 py-2.5 bg-white text-purple-700 font-semibold rounded-lg hover:bg-white/90 transition-all shadow-lg">
+                <button
+                  className="px-6 py-2.5 bg-white text-purple-700 font-semibold rounded-lg hover:bg-white/90 transition-all shadow-lg"
+                  onClick={() => setOpen(true)}
+                >
                   Create Event
                 </button>
-                <button className="px-6 py-2.5 bg-white/20 backdrop-blur text-white font-semibold rounded-lg hover:bg-white/30 transition-all border border-white/30">
+                <button
+                  className="px-6 py-2.5 bg-white/20 backdrop-blur text-white font-semibold rounded-lg hover:bg-white/30 transition-all border border-white/30"
+                  onClick={() => setCalendarOpen(true)}
+                >
                   View Calendar
                 </button>
               </div>
