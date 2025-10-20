@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Calendar, Clock, History, LogOut, Sparkles } from "lucide-react";
+import { LayoutDashboard, Calendar, Clock, History, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +11,7 @@ import {
   SidebarHeader,
   SidebarFooter,
 } from "../components/ui/sidebar";
+import logo from "../assets/logo.jpg";
 
 const navItems = [
   { title: "Dashboard", url: "/", icon: LayoutDashboard },
@@ -24,9 +25,7 @@ export function AppSidebar() {
     <Sidebar className="border-r border-gray-200 dark:border-gray-800">
       <SidebarHeader className="p-6 pb-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-purple-600 to-cyan-500">
-            <Sparkles className="h-6 w-6 text-white" />
-          </div>
+          <img src={logo} alt="ImagineX Logo" className="h-10 w-10 rounded-lg object-cover" />
           <div>
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">ImagineX</h1>
             <p className="text-xs text-gray-600 dark:text-gray-400">Event Management</p>
@@ -37,10 +36,10 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="transition-all">
+                  <SidebarMenuButton asChild className="transition-all h-10">
                     <NavLink
                       to={item.url}
                       end
