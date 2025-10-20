@@ -74,8 +74,8 @@ export default function Dashboard() {
         {/* Quick Insights Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Recent Activity */}
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-900 ">
               <div className="h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
               Recent Activity
             </h3>
@@ -85,17 +85,17 @@ export default function Dashboard() {
                 { event: "Marketing Expo", action: "Scheduled for tomorrow", status: "upcoming" },
                 { event: "Annual Gala", action: "Completed yesterday", status: "completed" },
               ].map((activity, idx) => (
-                <div key={idx} className="flex items-center justify-between py-3 border-b border-gray-200 dark:border-gray-800 last:border-0">
+                <div key={idx} className="flex items-center justify-between py-3 border-b border-gray-200 last:border-0">
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">{activity.event}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{activity.action}</p>
+                    <p className="font-medium text-gray-900">{activity.event}</p>
+                    <p className="text-sm text-gray-600">{activity.action}</p>
                   </div>
                   <span className={`text-xs px-3 py-1 rounded-full font-medium ${
                     activity.status === 'ongoing' 
-                      ? 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300' 
+                      ? 'bg-cyan-100 text-cyan-700 ' 
                       : activity.status === 'upcoming'
-                      ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
-                      : 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300'
+                      ? 'bg-purple-100  text-purple-700 '
+                      : 'bg-pink-100  text-pink-700 '
                   }`}>
                     {activity.status}
                   </span>
@@ -105,33 +105,33 @@ export default function Dashboard() {
           </div>
 
           {/* Event Performance */}
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-lg">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Event Performance</h3>
+          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 ">Event Performance</h3>
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Average Attendance</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">87%</span>
+                  <span className="text-sm text-gray-600 ">Average Attendance</span>
+                  <span className="font-semibold text-gray-900 ">87%</span>
                 </div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200  rounded-full overflow-hidden">
                   <div className="h-full w-[87%] bg-gradient-to-r from-purple-600 to-cyan-500 rounded-full" />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Client Satisfaction</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">94%</span>
+                  <span className="text-sm text-gray-600 ">Client Satisfaction</span>
+                  <span className="font-semibold text-gray-900 ">94%</span>
                 </div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200  rounded-full overflow-hidden">
                   <div className="h-full w-[94%] bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full" />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">On-Time Completion</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">91%</span>
+                  <span className="text-sm text-gray-600 ">On-Time Completion</span>
+                  <span className="font-semibold text-gray-900 ">91%</span>
                 </div>
-                <div className="h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200  rounded-full overflow-hidden">
                   <div className="h-full w-[91%] bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full" />
                 </div>
               </div>

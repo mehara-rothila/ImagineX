@@ -11,14 +11,14 @@ interface EventStatCardProps {
 
 export function EventStatCard({ title, count, icon: Icon, gradient, trend }: EventStatCardProps) {
   return (
-    <Card className="overflow-hidden border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+    <Card className="overflow-hidden border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">{title}</p>
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{count}</h3>
+            <p className="text-sm font-medium text-gray-600 0 mb-1">{title}</p>
+            <h3 className="text-3xl font-bold text-gray-900  mb-2">{count}</h3>
             {trend && (
-              <p className="text-xs text-gray-600 dark:text-gray-400">{trend}</p>
+              <p className="text-xs text-gray-600">{trend}</p>
             )}
           </div>
           <div className={`p-3 rounded-xl ${gradient}`}>
