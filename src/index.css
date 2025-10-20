@@ -2,16 +2,115 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+@layer base {
+  :root {
+    --background: 250 100% 99%;
+    --foreground: 258 40% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 258 40% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 258 40% 15%;
+
+    --primary: 266 75% 58%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-glow: 280 85% 65%;
+    
+    --secondary: 193 85% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 252 35% 95%;
+    --muted-foreground: 258 20% 50%;
+
+    --accent: 280 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 252 30% 90%;
+    --input: 252 30% 90%;
+    --ring: 266 75% 58%;
+
+    --radius: 0.75rem;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(266 75% 58%), hsl(280 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(266 75% 58%), hsl(193 85% 55%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(250 100% 99%));
+    
+    --shadow-card: 0 4px 20px -2px hsl(266 75% 58% / 0.15);
+    --shadow-card-hover: 0 8px 30px -4px hsl(266 75% 58% / 0.25);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 258 45% 12%;
+    --sidebar-foreground: 252 35% 85%;
+    --sidebar-primary: 266 75% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 258 40% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 258 35% 20%;
+    --sidebar-ring: 266 75% 58%;
+  }
+
+  .dark {
+    --background: 258 45% 8%;
+    --foreground: 252 35% 95%;
+
+    --card: 258 40% 12%;
+    --card-foreground: 252 35% 95%;
+
+    --popover: 258 40% 12%;
+    --popover-foreground: 252 35% 95%;
+
+    --primary: 266 75% 58%;
+    --primary-foreground: 0 0% 100%;
+    
+    --primary-glow: 280 85% 65%;
+
+    --secondary: 193 85% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 258 35% 15%;
+    --muted-foreground: 252 25% 60%;
+
+    --accent: 280 70% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 258 35% 20%;
+    --input: 258 35% 20%;
+    --ring: 266 75% 58%;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(266 75% 58%), hsl(280 85% 65%));
+    --gradient-hero: linear-gradient(135deg, hsl(266 75% 58%), hsl(193 85% 55%));
+    --gradient-card: linear-gradient(180deg, hsl(258 40% 12%), hsl(258 45% 10%));
+    
+    --shadow-card: 0 4px 20px -2px hsl(266 75% 58% / 0.3);
+    --shadow-card-hover: 0 8px 30px -4px hsl(266 75% 58% / 0.4);
+    
+    --sidebar-background: 258 45% 12%;
+    --sidebar-foreground: 252 35% 85%;
+    --sidebar-primary: 266 75% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 258 40% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 258 35% 20%;
+    --sidebar-ring: 266 75% 58%;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
