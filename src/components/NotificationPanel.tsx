@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 
 const notifications = [
@@ -30,9 +30,27 @@ const notifications = [
 ];
 
 export function NotificationPanel({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
+        onOpenChange(false);
+      }
+    }
+
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open, onOpenChange]);
+
   if (!open) return null;
   return (
-    <div className="absolute right-6 top-16 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 animate-in fade-in slide-in-from-top p-4 flex flex-col">
+    <div ref={panelRef} className="absolute right-6 top-16 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 animate-in fade-in slide-in-from-top p-4 flex flex-col">
       <h3 className="text-lg font-semibold mb-3">Notifications</h3>
       <div className="flex-1 overflow-y-auto mb-3">
         {notifications.map((n, idx) => (
