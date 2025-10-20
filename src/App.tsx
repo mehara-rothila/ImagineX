@@ -10,6 +10,9 @@ import Dashboard from "./pages/Dashboard";
 import UpcomingEvents from "./pages/UpcomingEvents";
 import OngoingEvents from "./pages/OngoingEvents";
 import PastEvents from "./pages/PastEvents";
+import EventDetails from "./pages/EventDetails";
+import Feedback from "./pages/Feedback";
+import Report from "./pages/Report";
 import NotFound from "./pages/NotFound";
 import "./App.css";
 
@@ -31,6 +34,9 @@ const App = () => (
                 <Route path="/upcoming" element={<UpcomingEvents />} />
                 <Route path="/ongoing" element={<OngoingEvents />} />
                 <Route path="/past" element={<PastEvents />} />
+                <Route path="/past/:eventId" element={<EventDetails />} />
+                <Route path="/past/:eventId/feedback" element={<Feedback />} />
+                <Route path="/past/report" element={<Report />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
