@@ -87,21 +87,21 @@ export function EventCalendar({ open, onOpenChange }: { open: boolean; onOpenCha
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             <div className="flex items-center justify-between gap-2">
               <Button variant="ghost" size="sm" onClick={handlePrevMonth}>&lt;</Button>
-              <span>{monthNames[month]} {year}</span>
+              <span className="text-base sm:text-lg">{monthNames[month]} {year}</span>
               <Button variant="ghost" size="sm" onClick={handleNextMonth}>&gt;</Button>
             </div>
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-7 gap-2 text-center font-semibold text-purple-700">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-center font-semibold text-purple-700 text-xs sm:text-sm">
             <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
           </div>
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2">
             {weeks.flat().map((d, idx) => {
               const isToday =
                 d &&
@@ -112,19 +112,20 @@ export function EventCalendar({ open, onOpenChange }: { open: boolean; onOpenCha
               return (
                 <div
                   key={idx}
-                  className={`min-h-[70px] rounded-lg border p-2 flex flex-col items-center justify-start bg-white ${d ? "hover:bg-purple-50 transition-all" : "bg-gray-50"} ${isToday ? "ring-2 ring-purple-500" : ""}`}
+                  className={`min-h-[60px] sm:min-h-[80px] rounded-lg border p-1 sm:p-2 flex flex-col items-center justify-start bg-white ${d ? "hover:bg-purple-50 transition-all" : "bg-gray-50"} ${isToday ? "ring-2 ring-purple-500" : ""}`}
                 >
                   {d && (
                     <>
-                      <span className={`font-bold mb-1 ${isToday ? "text-purple-700" : "text-gray-800"}`}>{d}</span>
+                      <span className={`font-bold mb-1 text-sm sm:text-base ${isToday ? "text-purple-700" : "text-gray-800"}`}>{d}</span>
                       {dayEvents.map((event, i) => (
                         <span
                           key={i}
-                          className={`text-xs rounded px-2 py-1 mt-1 w-full text-center
+                          className={`text-[10px] sm:text-xs rounded px-1 sm:px-2 py-0.5 sm:py-1 mt-1 w-full text-center truncate
                             ${event.type === "upcoming" ? "bg-green-100 text-green-700" : ""}
                             ${event.type === "ended" ? "bg-gray-200 text-gray-500 line-through" : ""}
                             ${isToday ? "border border-purple-400" : ""}
                           `}
+                          title={event.name}
                         >
                           {event.name}
                         </span>
@@ -136,7 +137,7 @@ export function EventCalendar({ open, onOpenChange }: { open: boolean; onOpenCha
             })}
           </div>
           {/* Legend */}
-          <div className="flex items-center justify-center gap-6 mt-2 text-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-2 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded bg-green-100 border border-green-300"></div>
               <span className="text-gray-700">Upcoming Event</span>
