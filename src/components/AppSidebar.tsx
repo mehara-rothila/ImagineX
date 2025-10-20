@@ -36,10 +36,10 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="transition-all">
+                  <SidebarMenuButton asChild className="transition-all h-10">
                     <NavLink
                       to={item.url}
                       end
