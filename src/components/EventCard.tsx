@@ -15,7 +15,7 @@ export function EventCard({ event }: EventCardProps) {
     navigate(`/past/${event.id}`);
   };
 
-  const handleProvideFeedback = () => {
+  const handleViewFeedback = () => {
     navigate(`/past/${event.id}/feedback`);
   };
 
@@ -133,10 +133,10 @@ export function EventCard({ event }: EventCardProps) {
         {/* Action Buttons - Pushed to bottom */}
         <div className="flex gap-3 mt-auto">
           <Button
-            onClick={handleProvideFeedback}
+            onClick={handleViewFeedback}
             className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
           >
-            Provide Feedback
+            View Feedback
           </Button>
           <Button
             onClick={handleViewDetails}

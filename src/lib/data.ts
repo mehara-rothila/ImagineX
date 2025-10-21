@@ -21,6 +21,25 @@ export interface Participant {
   avatar?: string;
 }
 
+export interface Feedback {
+  id: string;
+  eventId: string;
+  participantId: string;
+  participantName: string;
+  participantEmail: string;
+  rating: number;
+  feedbackCategories: {
+    venue: string;
+    content: string;
+    organization: string;
+    overall: string;
+  };
+  recommendation: string;
+  comments: string;
+  improvements: string;
+  submittedAt: string;
+}
+
 export const pastEvents: Event[] = [
   {
     id: "1",
@@ -186,6 +205,153 @@ export const pastEvents: Event[] = [
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mia",
       },
     ],
+  },
+];
+
+export const feedbackData: Feedback[] = [
+  {
+    id: "f1",
+    eventId: "1",
+    participantId: "p1",
+    participantName: "John Doe",
+    participantEmail: "john@example.com",
+    rating: 5,
+    feedbackCategories: {
+      venue: "excellent",
+      content: "excellent",
+      organization: "excellent",
+      overall: "excellent",
+    },
+    recommendation: "yes",
+    comments: "Absolutely fantastic event! The music was incredible and the atmosphere was perfect. The park setting made it even more special.",
+    improvements: "Maybe add more food options for vegetarians.",
+    submittedAt: "2024-10-16T10:30:00Z",
+  },
+  {
+    id: "f2",
+    eventId: "1",
+    participantId: "p4",
+    participantName: "Alice Brown",
+    participantEmail: "alice@example.com",
+    rating: 4,
+    feedbackCategories: {
+      venue: "good",
+      content: "excellent",
+      organization: "good",
+      overall: "very good",
+    },
+    recommendation: "yes",
+    comments: "Great concert series! The lineup was amazing and the sound quality was excellent. Had a wonderful time with friends.",
+    improvements: "The parking situation could be better organized.",
+    submittedAt: "2024-10-16T14:20:00Z",
+  },
+  {
+    id: "f3",
+    eventId: "2",
+    participantId: "p5",
+    participantName: "Charlie Wilson",
+    participantEmail: "charlie@example.com",
+    rating: 5,
+    feedbackCategories: {
+      venue: "excellent",
+      content: "excellent",
+      organization: "excellent",
+      overall: "excellent",
+    },
+    recommendation: "yes",
+    comments: "This tech showcase was groundbreaking! The AI demonstrations were mind-blowing and the networking opportunities were invaluable.",
+    improvements: "Would love to see more hands-on workshops next time.",
+    submittedAt: "2024-09-21T09:15:00Z",
+  },
+  {
+    id: "f4",
+    eventId: "2",
+    participantId: "p7",
+    participantName: "Eve Adams",
+    participantEmail: "eve@example.com",
+    rating: 4,
+    feedbackCategories: {
+      venue: "good",
+      content: "excellent",
+      organization: "good",
+      overall: "very good",
+    },
+    recommendation: "yes",
+    comments: "Impressive showcase of innovations. The speakers were knowledgeable and the exhibits were well-curated.",
+    improvements: "Some sessions ran over time, better time management would help.",
+    submittedAt: "2024-09-21T16:45:00Z",
+  },
+  {
+    id: "f5",
+    eventId: "3",
+    participantId: "p8",
+    participantName: "Frank Miller",
+    participantEmail: "frank@example.com",
+    rating: 5,
+    feedbackCategories: {
+      venue: "excellent",
+      content: "excellent",
+      organization: "excellent",
+      overall: "excellent",
+    },
+    recommendation: "yes",
+    comments: "Elegant gala dinner with excellent networking opportunities. The food was outstanding and the speeches were inspiring.",
+    improvements: "Everything was perfect, no suggestions for improvement.",
+    submittedAt: "2024-08-31T22:00:00Z",
+  },
+  {
+    id: "f6",
+    eventId: "3",
+    participantId: "p9",
+    participantName: "Grace Lee",
+    participantEmail: "grace@example.com",
+    rating: 4,
+    feedbackCategories: {
+      venue: "excellent",
+      content: "good",
+      organization: "excellent",
+      overall: "very good",
+    },
+    recommendation: "yes",
+    comments: "Beautiful venue and great atmosphere. Enjoyed meeting industry leaders and the dinner was delicious.",
+    improvements: "More interactive sessions would be nice.",
+    submittedAt: "2024-08-31T23:30:00Z",
+  },
+  {
+    id: "f7",
+    eventId: "4",
+    participantId: "p13",
+    participantName: "Karen White",
+    participantEmail: "karen@example.com",
+    rating: 5,
+    feedbackCategories: {
+      venue: "excellent",
+      content: "excellent",
+      organization: "excellent",
+      overall: "excellent",
+    },
+    recommendation: "yes",
+    comments: "Outstanding pitch competition! The quality of startups was impressive and the judging process was fair and thorough.",
+    improvements: "Consider having more time for Q&A after each pitch.",
+    submittedAt: "2024-07-16T11:20:00Z",
+  },
+  {
+    id: "f8",
+    eventId: "4",
+    participantId: "p14",
+    participantName: "Liam Garcia",
+    participantEmail: "liam@example.com",
+    rating: 4,
+    feedbackCategories: {
+      venue: "good",
+      content: "excellent",
+      organization: "good",
+      overall: "very good",
+    },
+    recommendation: "yes",
+    comments: "Great platform to showcase our startup. Got valuable feedback from investors and made important connections.",
+    improvements: "The time slots were a bit tight for thorough presentations.",
+    submittedAt: "2024-07-16T15:10:00Z",
   },
 ];
 
