@@ -45,16 +45,21 @@ export default function EventDetails() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = date
+      .toLocaleString("default", { month: "short" })
+      .toUpperCase();
     const year = date.getFullYear();
-    const time = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-    const weekday = date.toLocaleString('default', { weekday: 'long' });
+    const time = date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    const weekday = date.toLocaleString("default", { weekday: "long" });
 
     return {
       day,
       month,
-      fullDate: `${weekday}, ${month} ${day}, ${year} • ${time}`
+      fullDate: `${weekday}, ${month} ${day}, ${year} • ${time}`,
     };
   };
 
@@ -100,7 +105,10 @@ export default function EventDetails() {
           <div className="absolute bottom-6 left-6 right-6">
             <div className="flex items-center justify-between">
               <div className="text-white">
-                <Badge variant="secondary" className="mb-2 bg-blue-100 text-blue-700">
+                <Badge
+                  variant="secondary"
+                  className="mb-2 bg-blue-100 text-blue-700"
+                >
                   {event.category}
                 </Badge>
                 <h1 className="text-3xl font-bold mb-2">{event.title}</h1>
@@ -120,7 +128,7 @@ export default function EventDetails() {
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Provide Feedback
+                View Feedback
               </Button>
             </div>
           </div>
@@ -189,20 +197,36 @@ export default function EventDetails() {
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">{event.attendeesCount}</div>
-                    <div className="text-sm text-muted-foreground">Total Attendees</div>
+                    <div className="text-2xl font-bold text-blue-600">
+                      {event.attendeesCount}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Total Attendees
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">{event.participants.length}</div>
-                    <div className="text-sm text-muted-foreground">Registered Participants</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      {event.participants.length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Registered Participants
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">4.8</div>
-                    <div className="text-sm text-muted-foreground">Average Rating</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      4.8
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Average Rating
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">95%</div>
-                    <div className="text-sm text-muted-foreground">Satisfaction Rate</div>
+                    <div className="text-2xl font-bold text-orange-600">
+                      95%
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Satisfaction Rate
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -234,8 +258,12 @@ export default function EventDetails() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium truncate">{participant.name}</p>
-                        <p className="text-sm text-muted-foreground truncate">{participant.email}</p>
+                        <p className="font-medium truncate">
+                          {participant.name}
+                        </p>
+                        <p className="text-sm text-muted-foreground truncate">
+                          {participant.email}
+                        </p>
                       </div>
                       <Badge variant="outline" className="text-xs">
                         {participant.role}
@@ -257,7 +285,7 @@ export default function EventDetails() {
                   className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Provide Feedback
+                  View Feedback
                 </Button>
                 <Button
                   variant="outline"

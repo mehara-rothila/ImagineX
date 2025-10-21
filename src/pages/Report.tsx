@@ -27,7 +27,10 @@ export default function Report() {
 
   // Calculate analytics data
   const totalEvents = pastEvents.length;
-  const totalAttendees = pastEvents.reduce((sum, event) => sum + event.attendeesCount, 0);
+  const totalAttendees = pastEvents.reduce(
+    (sum, event) => sum + event.attendeesCount,
+    0
+  );
   const averageRating = 4.2; // Mock data
   const totalFeedback = 156; // Mock data
 
@@ -57,18 +60,20 @@ export default function Report() {
   ];
 
   // Simple bar chart component
-  const BarChart = ({ data, title }: { data: any[], title: string }) => (
+  const BarChart = ({ data, title }: { data: any[]; title: string }) => (
     <div className="space-y-3">
       <h4 className="text-sm font-medium text-muted-foreground">{title}</h4>
       <div className="space-y-2">
         {data.map((item, index) => (
           <div key={index} className="flex items-center space-x-3">
-            <div className="w-12 text-xs text-muted-foreground">{item.month || item.rating}</div>
+            <div className="w-12 text-xs text-muted-foreground">
+              {item.month || item.rating}
+            </div>
             <div className="flex-1 bg-gray-200 rounded-full h-2">
               <div
                 className="bg-purple-600 h-2 rounded-full transition-all duration-500"
                 style={{
-                  width: `${item.percentage || (item.events / 8) * 100}%`
+                  width: `${item.percentage || (item.events / 8) * 100}%`,
                 }}
               ></div>
             </div>
@@ -105,10 +110,16 @@ export default function Report() {
               `M 50 50`,
               `L ${x1} ${y1}`,
               `A 40 40 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-              `Z`
-            ].join(' ');
+              `Z`,
+            ].join(" ");
 
-            const colors = ['#8B5CF6', '#06B6D4', '#10B981', '#F59E0B', '#EF4444'];
+            const colors = [
+              "#8B5CF6",
+              "#06B6D4",
+              "#10B981",
+              "#F59E0B",
+              "#EF4444",
+            ];
 
             return (
               <path
@@ -133,8 +144,8 @@ export default function Report() {
 
   return (
     <div className="flex-1 overflow-auto bg-gray-50">
-      <div className="p-6">
-        {/* Breadcrumb Navigation */}
+      {/* Breadcrumb Navigation */}
+      <div className="p-6 pb-0">
         <div className="mb-6">
           <Button
             variant="ghost"
@@ -145,24 +156,49 @@ export default function Report() {
             Back to Past Events
           </Button>
         </div>
+      </div>
 
-        {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
+      {/* Hero Header with Pattern Background - Full Width */}
+      <div className="relative bg-gradient-to-br from-purple-600 via-purple-500 to-cyan-500 p-8 mb-6">
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+        <div className="relative z-10 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Event Reports & Analytics</h1>
-            <p className="text-muted-foreground mt-1">Comprehensive insights into past event performance</p>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Event Reports & Analytics
+            </h1>
+            <p className="text-white/90 text-lg">
+              Comprehensive insights into past event performance.
+            </p>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+            >
               <Filter className="mr-2 h-4 w-4" />
               Filter
             </Button>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+            >
               <Download className="mr-2 h-4 w-4" />
               Export
             </Button>
           </div>
         </div>
+      </div>
+
+      <div className="p-6">
 
         {/* Key Metrics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -170,7 +206,9 @@ export default function Report() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Total Events</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Events
+                  </p>
                   <p className="text-3xl font-bold">{totalEvents}</p>
                 </div>
                 <Calendar className="h-8 w-8 text-blue-500" />
@@ -186,8 +224,12 @@ export default function Report() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Total Attendees</p>
-                  <p className="text-3xl font-bold">{totalAttendees.toLocaleString()}</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Total Attendees
+                  </p>
+                  <p className="text-3xl font-bold">
+                    {totalAttendees.toLocaleString()}
+                  </p>
                 </div>
                 <Users className="h-8 w-8 text-green-500" />
               </div>
@@ -202,14 +244,18 @@ export default function Report() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Average Rating</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Average Rating
+                  </p>
                   <p className="text-3xl font-bold">{averageRating}</p>
                 </div>
                 <Award className="h-8 w-8 text-yellow-500" />
               </div>
               <div className="mt-4 flex items-center text-sm">
                 <Activity className="h-4 w-4 text-blue-500 mr-1" />
-                <span className="text-blue-600">Based on {totalFeedback} reviews</span>
+                <span className="text-blue-600">
+                  Based on {totalFeedback} reviews
+                </span>
               </div>
             </CardContent>
           </Card>
@@ -218,7 +264,9 @@ export default function Report() {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Feedback Count</p>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Feedback Count
+                  </p>
                   <p className="text-3xl font-bold">{totalFeedback}</p>
                 </div>
                 <BarChart3 className="h-8 w-8 text-purple-500" />
@@ -258,15 +306,26 @@ export default function Report() {
                 <PieChartComponent data={ratingData} />
                 <div className="space-y-2">
                   {ratingData.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-2 text-sm">
+                    <div
+                      key={index}
+                      className="flex items-center space-x-2 text-sm"
+                    >
                       <div
                         className="w-3 h-3 rounded-full"
                         style={{
-                          backgroundColor: ['#8B5CF6', '#06B6D4', '#10B981', '#F59E0B', '#EF4444'][index]
+                          backgroundColor: [
+                            "#8B5CF6",
+                            "#06B6D4",
+                            "#10B981",
+                            "#F59E0B",
+                            "#EF4444",
+                          ][index],
                         }}
                       ></div>
                       <span>{item.rating}</span>
-                      <span className="text-muted-foreground">({item.percentage}%)</span>
+                      <span className="text-muted-foreground">
+                        ({item.percentage}%)
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -284,22 +343,29 @@ export default function Report() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {Object.entries(categoryData).map(([category, count], index) => (
-                  <div key={category} className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <Badge variant="outline" className="text-xs">
-                        {category}
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">{count} events</span>
+                {Object.entries(categoryData).map(
+                  ([category, count], index) => (
+                    <div
+                      key={category}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <Badge variant="outline" className="text-xs">
+                          {category}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground">
+                          {count} events
+                        </span>
+                      </div>
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-blue-500 h-2 rounded-full"
+                          style={{ width: `${(count / totalEvents) * 100}%` }}
+                        ></div>
+                      </div>
                     </div>
-                    <div className="w-24 bg-gray-200 rounded-full h-2">
-                      <div
-                        className="bg-blue-500 h-2 rounded-full"
-                        style={{ width: `${(count / totalEvents) * 100}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </CardContent>
           </Card>
@@ -315,14 +381,19 @@ export default function Report() {
             <CardContent>
               <div className="space-y-4">
                 {pastEvents.slice(0, 5).map((event, index) => (
-                  <div key={event.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div
+                    key={event.id}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-sm font-medium text-purple-700">
                         {index + 1}
                       </div>
                       <div>
                         <p className="font-medium text-sm">{event.title}</p>
-                        <p className="text-xs text-muted-foreground">{event.attendeesCount} attendees</p>
+                        <p className="text-xs text-muted-foreground">
+                          {event.attendeesCount} attendees
+                        </p>
                       </div>
                     </div>
                     <Badge variant="secondary" className="text-xs">
@@ -346,11 +417,17 @@ export default function Report() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left py-3 px-4 font-medium">Event</th>
-                    <th className="text-left py-3 px-4 font-medium">Category</th>
+                    <th className="text-left py-3 px-4 font-medium">
+                      Category
+                    </th>
                     <th className="text-left py-3 px-4 font-medium">Date</th>
-                    <th className="text-right py-3 px-4 font-medium">Attendees</th>
+                    <th className="text-right py-3 px-4 font-medium">
+                      Attendees
+                    </th>
                     <th className="text-right py-3 px-4 font-medium">Rating</th>
-                    <th className="text-right py-3 px-4 font-medium">Feedback</th>
+                    <th className="text-right py-3 px-4 font-medium">
+                      Feedback
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -359,7 +436,9 @@ export default function Report() {
                       <td className="py-3 px-4">
                         <div>
                           <p className="font-medium">{event.title}</p>
-                          <p className="text-xs text-muted-foreground">{event.location}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {event.location}
+                          </p>
                         </div>
                       </td>
                       <td className="py-3 px-4">
@@ -375,12 +454,16 @@ export default function Report() {
                       </td>
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end space-x-1">
-                          <span className="font-medium">4.{Math.floor(Math.random() * 9) + 1}</span>
+                          <span className="font-medium">
+                            4.{Math.floor(Math.random() * 9) + 1}
+                          </span>
                           <Award className="h-3 w-3 text-yellow-500" />
                         </div>
                       </td>
                       <td className="py-3 px-4 text-right">
-                        <span className="font-medium">{Math.floor(Math.random() * 20) + 5}</span>
+                        <span className="font-medium">
+                          {Math.floor(Math.random() * 20) + 5}
+                        </span>
                       </td>
                     </tr>
                   ))}
