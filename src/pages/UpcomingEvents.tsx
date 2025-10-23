@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
-import { Edit, Trash2, Calendar, Users, Clock, TrendingUp, CheckCircle2 } from "lucide-react";
+import { Edit, Trash2, Calendar, Users, Clock, TrendingUp, CheckCircle2, Search, Filter, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { EditEventForm } from "../components/EditEventForm";
+import { Input } from "../components/ui/input";
 
 // Dummy upcoming events data
 const initialEvents = [
@@ -66,6 +67,8 @@ export default function UpcomingEvents() {
   const [events, setEvents] = useState(initialEvents);
   const [editOpen, setEditOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<typeof initialEvents[0] | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
 
   // Calculate days until event
   const getDaysUntil = (dateString: string) => {
@@ -75,6 +78,21 @@ export default function UpcomingEvents() {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
   };
+
+  // Filter events based on search and category
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) => {
+      const matchesSearch =
+        event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.place.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory =
+        categoryFilter === "all" || event.category === categoryFilter;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [events, searchQuery, categoryFilter]);
 
   // Calculate stats
   const stats = useMemo(() => {
@@ -180,6 +198,73 @@ export default function UpcomingEvents() {
           </div>
         </div>
 
+        {/* Filter Bar */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            {/* Search Input */}
+            <div className="relative flex-1 w-full md:max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search by event name, company, or place..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-10"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Category Filter */}
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Filter className="h-4 w-4" />
+                <span className="font-medium">Filter:</span>
+              </div>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="flex-1 md:flex-none h-10 px-3 pr-8 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              >
+                <option value="all">All Categories</option>
+                <option value="major-event">Major Event</option>
+                <option value="music">Music</option>
+                <option value="rigging-service">Rigging Service</option>
+              </select>
+
+              {/* Clear Filters Button */}
+              {(searchQuery || categoryFilter !== "all") && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCategoryFilter("all");
+                  }}
+                  className="whitespace-nowrap"
+                >
+                  <X className="h-4 w-4 mr-1" />
+                  Clear
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="mt-3 pt-3 border-t border-gray-200">
+            <p className="text-sm text-gray-600">
+              Showing <span className="font-semibold text-gray-900">{filteredEvents.length}</span> of{" "}
+              <span className="font-semibold text-gray-900">{events.length}</span> events
+            </p>
+          </div>
+        </div>
+
         {/* Events Table */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
@@ -196,7 +281,7 @@ export default function UpcomingEvents() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {events.map((event) => (
+                {filteredEvents.map((event) => (
                   <tr key={event.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 text-sm font-medium text-gray-900">{event.name}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">{event.company}</td>
@@ -237,9 +322,30 @@ export default function UpcomingEvents() {
           </div>
         </div>
 
-        {events.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No upcoming events found.</p>
+        {filteredEvents.length === 0 && (
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-12">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="h-8 w-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No events found</h3>
+              <p className="text-gray-500 mb-4">
+                {searchQuery || categoryFilter !== "all"
+                  ? "Try adjusting your search or filter criteria."
+                  : "No upcoming events found."}
+              </p>
+              {(searchQuery || categoryFilter !== "all") && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setCategoryFilter("all");
+                  }}
+                >
+                  Clear Filters
+                </Button>
+              )}
+            </div>
           </div>
         )}
       </div>
