@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Edit, Trash2 } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Edit, Trash2, Calendar, Users, Clock, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { EditEventForm } from "../components/EditEventForm";
 
@@ -67,6 +67,28 @@ export default function UpcomingEvents() {
   const [editOpen, setEditOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<typeof initialEvents[0] | null>(null);
 
+  // Calculate days until event
+  const getDaysUntil = (dateString: string) => {
+    const eventDate = new Date(dateString);
+    const today = new Date("2025-10-23"); // Current date from context
+    const diffTime = eventDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  // Calculate stats
+  const stats = useMemo(() => {
+    const totalEvents = events.length;
+    const totalParticipants = events.reduce((sum, event) => sum + event.participants, 0);
+    const thisWeekEvents = events.filter(event => getDaysUntil(event.date) <= 7 && getDaysUntil(event.date) >= 0).length;
+    const categoryCounts = events.reduce((acc, event) => {
+      acc[event.category] = (acc[event.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    return { totalEvents, totalParticipants, thisWeekEvents, categoryCounts };
+  }, [events]);
+
   const handleEdit = (event: typeof initialEvents[0]) => {
     setSelectedEvent(event);
     setEditOpen(true);
@@ -94,6 +116,70 @@ export default function UpcomingEvents() {
       </div>
 
       <div className="p-6">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600 mb-1">Total Events</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.totalEvents}</p>
+              </div>
+              <div className="p-3 bg-purple-100 rounded-lg">
+                <Calendar className="h-6 w-6 text-purple-600" />
+              </div>
+            </div>
+            <div className="mt-3 flex items-center text-sm text-green-600">
+              <TrendingUp className="h-4 w-4 mr-1" />
+              <span>All scheduled</span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600 mb-1">Total Participants</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.totalParticipants.toLocaleString()}</p>
+              </div>
+              <div className="p-3 bg-blue-100 rounded-lg">
+                <Users className="h-6 w-6 text-blue-600" />
+              </div>
+            </div>
+            <div className="mt-3 flex items-center text-sm text-gray-600">
+              <span>Expected attendees</span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600 mb-1">This Week</p>
+                <p className="text-3xl font-bold text-gray-900">{stats.thisWeekEvents}</p>
+              </div>
+              <div className="p-3 bg-amber-100 rounded-lg">
+                <Clock className="h-6 w-6 text-amber-600" />
+              </div>
+            </div>
+            <div className="mt-3 flex items-center text-sm text-amber-600">
+              <span>Next 7 days</span>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600 mb-1">Categories</p>
+                <p className="text-3xl font-bold text-gray-900">{Object.keys(stats.categoryCounts).length}</p>
+              </div>
+              <div className="p-3 bg-green-100 rounded-lg">
+                <CheckCircle2 className="h-6 w-6 text-green-600" />
+              </div>
+            </div>
+            <div className="mt-3 flex items-center text-sm text-gray-600">
+              <span>Event types</span>
+            </div>
+          </div>
+        </div>
+
         {/* Events Table */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
