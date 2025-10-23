@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { Edit, Trash2 } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { useState, useMemo } from "react";
 import { EditEventForm } from "../components/EditEventForm";
+import { PageHeader } from "../components/PageHeader";
+import { EventStatsCards } from "../components/EventStatsCards";
+import { EventFilterBar } from "../components/EventFilterBar";
+import { EventsTable, Event } from "../components/EventsTable";
+import { EventsEmptyState } from "../components/EventsEmptyState";
 
 // Dummy upcoming events data
-const initialEvents = [
+const initialEvents: Event[] = [
   {
     id: 1,
     name: "Saga 2025",
@@ -63,11 +66,50 @@ const initialEvents = [
 ];
 
 export default function UpcomingEvents() {
-  const [events, setEvents] = useState(initialEvents);
+  const [events, setEvents] = useState<Event[]>(initialEvents);
   const [editOpen, setEditOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState<typeof initialEvents[0] | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
 
-  const handleEdit = (event: typeof initialEvents[0]) => {
+  // Calculate days until event
+  const getDaysUntil = (dateString: string) => {
+    const eventDate = new Date(dateString);
+    const today = new Date("2025-10-23"); // Current date from context
+    const diffTime = eventDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  // Filter events based on search and category
+  const filteredEvents = useMemo(() => {
+    return events.filter((event) => {
+      const matchesSearch =
+        event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        event.place.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory =
+        categoryFilter === "all" || event.category === categoryFilter;
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [events, searchQuery, categoryFilter]);
+
+  // Calculate stats
+  const stats = useMemo(() => {
+    const totalEvents = events.length;
+    const totalParticipants = events.reduce((sum, event) => sum + event.participants, 0);
+    const thisWeekEvents = events.filter(event => getDaysUntil(event.date) <= 7 && getDaysUntil(event.date) >= 0).length;
+    const categoryCounts = events.reduce((acc, event) => {
+      acc[event.category] = (acc[event.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    return { totalEvents, totalParticipants, thisWeekEvents, categoryCounts };
+  }, [events]);
+
+  const handleEdit = (event: Event) => {
     setSelectedEvent(event);
     setEditOpen(true);
   };
@@ -76,85 +118,55 @@ export default function UpcomingEvents() {
     setEvents(events.filter((e) => e.id !== id));
   };
 
+  const handleClearFilters = () => {
+    setSearchQuery("");
+    setCategoryFilter("all");
+  };
+
+  const hasActiveFilters = searchQuery !== "" || categoryFilter !== "all";
+
   return (
     <div className="flex-1 overflow-auto">
       <EditEventForm open={editOpen} onOpenChange={setEditOpen} event={selectedEvent} />
-      
-      {/* Hero Header with Pattern Background */}
-      <div className="relative bg-gradient-to-br from-purple-600 via-purple-500 to-cyan-500 p-8 mb-6">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-        <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-white mb-2">Upcoming Events</h1>
-          <p className="text-white/90 text-lg">Manage and organize all your scheduled events in one place.</p>
-        </div>
-      </div>
+
+      {/* Page Header */}
+      <PageHeader
+        title="Upcoming Events"
+        description="Manage and organize all your scheduled events in one place."
+      />
 
       <div className="p-6">
-        {/* Events Table */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Event Name</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Company</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Date</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Place</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Participants</th>
-                  <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {events.map((event) => (
-                  <tr key={event.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{event.name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{event.company}</td>
-                    <td className="px-6 py-4 text-sm">
-                      <span className="px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
-                        {event.category === "major-event" ? "Major Event" : event.category === "music" ? "Music" : "Rigging Service"}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
-                      {new Date(event.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{event.place}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{event.participants}</td>
-                    <td className="px-6 py-4 text-sm">
-                      <div className="flex items-center justify-center gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                          onClick={() => handleEdit(event)}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                          onClick={() => handleDelete(event.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        {/* Stats Cards */}
+        <EventStatsCards
+          totalEvents={stats.totalEvents}
+          totalParticipants={stats.totalParticipants}
+          thisWeekEvents={stats.thisWeekEvents}
+          categoriesCount={Object.keys(stats.categoryCounts).length}
+        />
 
-        {events.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No upcoming events found.</p>
-          </div>
+        {/* Filter Bar */}
+        <EventFilterBar
+          searchQuery={searchQuery}
+          categoryFilter={categoryFilter}
+          totalEvents={events.length}
+          filteredCount={filteredEvents.length}
+          onSearchChange={setSearchQuery}
+          onCategoryChange={setCategoryFilter}
+          onClearFilters={handleClearFilters}
+        />
+
+        {/* Events Table or Empty State */}
+        {filteredEvents.length > 0 ? (
+          <EventsTable
+            events={filteredEvents}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ) : (
+          <EventsEmptyState
+            hasFilters={hasActiveFilters}
+            onClearFilters={handleClearFilters}
+          />
         )}
       </div>
     </div>
