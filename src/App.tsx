@@ -8,6 +8,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { TopBar } from "./components/TopBar";
 import Dashboard from "./pages/Dashboard";
 import UpcomingEvents from "./pages/UpcomingEvents";
+import UpcomingEventDetails from "./pages/UpcomingEventDetails";
 import OngoingEvents from "./pages/OngoingEvents";
 import OngoingEventDetails from "./pages/OngoingEventDetails";
 import PastEvents from "./pages/PastEvents";
@@ -33,6 +34,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/upcoming" element={<UpcomingEvents />} />
+                <Route path="/upcoming/:eventId" element={<UpcomingEventDetails />} />
                 <Route path="/ongoing" element={<OngoingEvents />} />
                 <Route path="/ongoing/:eventId" element={<OngoingEventDetails />} />
                 <Route path="/past" element={<PastEvents />} />
