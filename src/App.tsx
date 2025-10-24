@@ -9,6 +9,7 @@ import { TopBar } from "./components/TopBar";
 import Dashboard from "./pages/Dashboard";
 import UpcomingEvents from "./pages/UpcomingEvents";
 import OngoingEvents from "./pages/OngoingEvents";
+import OngoingEventDetails from "./pages/OngoingEventDetails";
 import PastEvents from "./pages/PastEvents";
 import EventDetails from "./pages/EventDetails";
 import Feedback from "./pages/Feedback";
@@ -33,6 +34,7 @@ const App = () => (
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/upcoming" element={<UpcomingEvents />} />
                 <Route path="/ongoing" element={<OngoingEvents />} />
+                <Route path="/ongoing/:eventId" element={<OngoingEventDetails />} />
                 <Route path="/past" element={<PastEvents />} />
                 <Route path="/past/:eventId" element={<EventDetails />} />
                 <Route path="/past/:eventId/feedback" element={<Feedback />} />
