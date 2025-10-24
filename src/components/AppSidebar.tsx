@@ -36,17 +36,17 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2 px-3">
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="transition-all h-10">
+                  <SidebarMenuButton asChild className="transition-all duration-200 h-11">
                     <NavLink
                       to={item.url}
                       end
                       className={({ isActive }) =>
                         isActive
-                          ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium"
-                          : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                          ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-md shadow-purple-500/30 font-semibold rounded-lg hover:from-purple-700 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/40 hover:scale-[1.02] relative before:absolute before:inset-0 before:rounded-lg before:bg-white/10 before:opacity-0 hover:before:opacity-100 before:transition-opacity"
+                          : "text-gray-700 dark:text-gray-300 hover:text-purple-700 dark:hover:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg font-medium hover:scale-[1.02] hover:shadow-sm"
                       }
                     >
                       <item.icon className="h-5 w-5" />
@@ -63,7 +63,7 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+            <SidebarMenuButton className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-200 hover:scale-[1.02]">
               <LogOut className="h-5 w-5" />
               <span>Logout</span>
             </SidebarMenuButton>
