@@ -272,9 +272,11 @@ export default function OngoingEventDetails() {
                           {participant.email}
                         </p>
                       </div>
-                      <Badge variant="outline" className="text-xs">
-                        {participant.role}
-                      </Badge>
+                      {participant.position && (
+                        <Badge variant="outline" className="text-xs">
+                          {participant.position}
+                        </Badge>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -324,11 +326,13 @@ export default function OngoingEventDetails() {
                     <p className="text-sm text-gray-600">
                       {selectedParticipant.email}
                     </p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <Badge variant="secondary">
-                        {selectedParticipant.role}
-                      </Badge>
-                    </div>
+                    {selectedParticipant.position && (
+                      <div className="mt-2">
+                        <Badge className="bg-purple-600 text-white hover:bg-purple-700">
+                          {selectedParticipant.position}
+                        </Badge>
+                      </div>
+                    )}
                   </div>
                 </div>                {/* QR Code Section */}
                 <div className="bg-gray-50 rounded-lg p-6">
@@ -346,6 +350,7 @@ export default function OngoingEventDetails() {
                           name: selectedParticipant.name,
                           email: selectedParticipant.email,
                           role: selectedParticipant.role,
+                          position: selectedParticipant.position,
                           eventId: eventId,
                         })
                       )}`}

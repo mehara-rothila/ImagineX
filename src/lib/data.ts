@@ -18,6 +18,7 @@ export interface Participant {
   name: string;
   email: string;
   role: string;
+  position?: string; // HR Officer, Manager, Employee, etc.
   avatar?: string;
 }
 
@@ -227,6 +228,7 @@ export const ongoingEvents: Event[] = [
         name: "Sarah Johnson",
         email: "sarah@example.com",
         role: "Attendee",
+        position: "HR Officer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
       },
       {
@@ -234,6 +236,7 @@ export const ongoingEvents: Event[] = [
         name: "Michael Chen",
         email: "michael@example.com",
         role: "VIP Guest",
+        position: "Manager",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
       },
       {
@@ -241,6 +244,7 @@ export const ongoingEvents: Event[] = [
         name: "Emily Rodriguez",
         email: "emily@example.com",
         role: "Attendee",
+        position: "Employee",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
       },
       {
@@ -248,6 +252,7 @@ export const ongoingEvents: Event[] = [
         name: "David Park",
         email: "david@example.com",
         role: "Staff",
+        position: "Manager",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
       },
     ],
@@ -270,6 +275,7 @@ export const ongoingEvents: Event[] = [
         name: "Alex Thompson",
         email: "alex@example.com",
         role: "Speaker",
+        position: "Senior Manager",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
       },
       {
@@ -277,6 +283,7 @@ export const ongoingEvents: Event[] = [
         name: "Jennifer Lee",
         email: "jennifer@example.com",
         role: "Attendee",
+        position: "Employee",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jennifer",
       },
       {
@@ -284,6 +291,7 @@ export const ongoingEvents: Event[] = [
         name: "Robert Kim",
         email: "robert@example.com",
         role: "Organizer",
+        position: "HR Officer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert",
       },
     ],
@@ -306,6 +314,7 @@ export const ongoingEvents: Event[] = [
         name: "Maria Garcia",
         email: "maria@example.com",
         role: "Vendor",
+        position: "Employee",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maria",
       },
       {
@@ -313,6 +322,7 @@ export const ongoingEvents: Event[] = [
         name: "James Wilson",
         email: "james@example.com",
         role: "Attendee",
+        position: "Manager",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
       },
       {
@@ -320,6 +330,7 @@ export const ongoingEvents: Event[] = [
         name: "Lisa Anderson",
         email: "lisa@example.com",
         role: "Performer",
+        position: "HR Officer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa",
       },
       {
@@ -327,6 +338,7 @@ export const ongoingEvents: Event[] = [
         name: "Tom Martinez",
         email: "tom@example.com",
         role: "Attendee",
+        position: "Employee",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom",
       },
     ],
