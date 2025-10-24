@@ -306,7 +306,7 @@ export default function OngoingEventDetails() {
             <DialogHeader>
               <DialogTitle>Participant Details</DialogTitle>
             </DialogHeader>
-            {selectedParticipant && (
+                {selectedParticipant && (
               <div className="space-y-6">
                 {/* Participant Info */}
                 <div className="flex items-center space-x-4">
@@ -324,13 +324,13 @@ export default function OngoingEventDetails() {
                     <p className="text-sm text-gray-600">
                       {selectedParticipant.email}
                     </p>
-                    <Badge variant="secondary" className="mt-2">
-                      {selectedParticipant.role}
-                    </Badge>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Badge variant="secondary">
+                        {selectedParticipant.role}
+                      </Badge>
+                    </div>
                   </div>
-                </div>
-
-                {/* QR Code Section */}
+                </div>                {/* QR Code Section */}
                 <div className="bg-gray-50 rounded-lg p-6">
                   <div className="flex items-center justify-center mb-4">
                     <QrCode className="h-5 w-5 text-purple-600 mr-2" />
