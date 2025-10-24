@@ -18,6 +18,7 @@ export interface Participant {
   name: string;
   email: string;
   role: string;
+  position?: string; // HR Officer, Manager, Employee, etc.
   avatar?: string;
 }
 
@@ -203,6 +204,142 @@ export const pastEvents: Event[] = [
         email: "mia@example.com",
         role: "Mentor",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mia",
+      },
+    ],
+  },
+];
+
+export const ongoingEvents: Event[] = [
+  {
+    id: "5",
+    title: "Summer Music Festival 2025",
+    date: "2025-10-24",
+    description:
+      "Live outdoor music festival featuring top artists and bands across multiple genres. Experience incredible performances under the stars with state-of-the-art sound and lighting.",
+    location: "Riverside Arena, Los Angeles, CA",
+    category: "Dance & Music",
+    organizer: "Festival Productions Ltd",
+    image: "/events/ongoing1.png",
+    status: "ongoing",
+    attendeesCount: 2500,
+    participants: [
+      {
+        id: "p16",
+        name: "Sarah Johnson",
+        email: "sarah@example.com",
+        role: "Attendee",
+        position: "HR Officer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      },
+      {
+        id: "p17",
+        name: "Michael Chen",
+        email: "michael@example.com",
+        role: "VIP Guest",
+        position: "Manager",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+      },
+      {
+        id: "p18",
+        name: "Emily Rodriguez",
+        email: "emily@example.com",
+        role: "Attendee",
+        position: "Employee",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+      },
+      {
+        id: "p19",
+        name: "David Park",
+        email: "david@example.com",
+        role: "Staff",
+        position: "Manager",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+      },
+    ],
+  },
+  {
+    id: "6",
+    title: "Global Tech Summit 2025",
+    date: "2025-10-24",
+    description:
+      "Premier technology conference bringing together industry leaders, innovators, and developers. Featuring keynote speeches, workshops, and networking sessions on AI, cloud computing, and emerging technologies.",
+    location: "Tech Convention Center, San Francisco, CA",
+    category: "Technology",
+    organizer: "TechWorld Events",
+    image: "/events/ongoing2.png",
+    status: "ongoing",
+    attendeesCount: 1800,
+    participants: [
+      {
+        id: "p20",
+        name: "Alex Thompson",
+        email: "alex@example.com",
+        role: "Speaker",
+        position: "Senior Manager",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      },
+      {
+        id: "p21",
+        name: "Jennifer Lee",
+        email: "jennifer@example.com",
+        role: "Attendee",
+        position: "Employee",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jennifer",
+      },
+      {
+        id: "p22",
+        name: "Robert Kim",
+        email: "robert@example.com",
+        role: "Organizer",
+        position: "HR Officer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert",
+      },
+    ],
+  },
+  {
+    id: "7",
+    title: "International Food & Culture Expo",
+    date: "2025-10-24",
+    description:
+      "Celebrate global cuisines and cultural diversity at this vibrant food festival. Sample dishes from around the world, enjoy live cultural performances, and experience the flavors of different traditions.",
+    location: "Downtown Square, Seattle, WA",
+    category: "Food & Culture",
+    organizer: "Cultural Events Association",
+    image: "/events/ongoing3.png",
+    status: "ongoing",
+    attendeesCount: 3200,
+    participants: [
+      {
+        id: "p23",
+        name: "Maria Garcia",
+        email: "maria@example.com",
+        role: "Vendor",
+        position: "Employee",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maria",
+      },
+      {
+        id: "p24",
+        name: "James Wilson",
+        email: "james@example.com",
+        role: "Attendee",
+        position: "Manager",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+      },
+      {
+        id: "p25",
+        name: "Lisa Anderson",
+        email: "lisa@example.com",
+        role: "Performer",
+        position: "HR Officer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa",
+      },
+      {
+        id: "p26",
+        name: "Tom Martinez",
+        email: "tom@example.com",
+        role: "Attendee",
+        position: "Employee",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom",
       },
     ],
   },

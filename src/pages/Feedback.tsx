@@ -26,7 +26,6 @@ import {
 } from "lucide-react";
 import { pastEvents, feedbackData } from "../lib/data";
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 export default function Feedback() {
   const { eventId } = useParams<{ eventId: string }>();
