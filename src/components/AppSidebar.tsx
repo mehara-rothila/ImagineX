@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Calendar, Clock, History, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, Clock, History, LogOut, QrCode } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -18,6 +18,7 @@ const navItems = [
   { title: "Upcoming Events", url: "/upcoming", icon: Calendar },
   { title: "Ongoing Events", url: "/ongoing", icon: Clock },
   { title: "Past Events", url: "/past", icon: History },
+  { title: "QR Generator", url: "/qr-generator", icon: QrCode },
 ];
 
 export function AppSidebar() {
@@ -63,9 +64,11 @@ export function AppSidebar() {
       <SidebarFooter className="p-4">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="text-gray-300 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all duration-200 hover:scale-[1.02]">
-              <LogOut className="h-5 w-5" />
-              <span>Logout</span>
+            <SidebarMenuButton asChild className="text-gray-300 hover:text-red-400 hover:bg-red-900/20 rounded-lg transition-all duration-200 hover:scale-[1.02]">
+              <NavLink to="/login">
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
+              </NavLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
