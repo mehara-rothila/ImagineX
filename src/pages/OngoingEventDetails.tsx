@@ -26,6 +26,7 @@ import {
   QrCode,
 } from "lucide-react";
 import { ongoingEvents, Participant } from "../lib/data";
+import QrStatus from "../components/QrStatus";
 
 export default function OngoingEventDetails() {
   const { eventId } = useParams<{ eventId: string }>();
@@ -297,6 +298,9 @@ export default function OngoingEventDetails() {
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back to Events
                 </Button>
+                <div className="mt-3">
+                  <QrStatus />
+                </div>
               </CardContent>
             </Card>
           </div>
