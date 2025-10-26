@@ -12,6 +12,16 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Label } from "../components/ui/label";
 import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "../components/ui/dialog";
+import {
   Calendar,
   MapPin,
   Users,
@@ -22,6 +32,7 @@ import {
   Save,
   ChevronLeft,
   ChevronRight,
+  QrCode,
 } from "lucide-react";
 import { toast } from "../hooks/use-toast";
 
@@ -270,6 +281,45 @@ export default function UpcomingEventDetails() {
                       <Users className="mr-2 h-4 w-4" />
                       Add Participant
                     </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          size="sm"
+                          className="bg-purple-600 hover:bg-purple-700 text-white"
+                        >
+                          <QrCode className="mr-2 h-4 w-4" />
+                          Send QR
+                        </Button>
+                      </DialogTrigger>
+
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Send QR Codes</DialogTitle>
+                          <DialogDescription>
+                            Are you sure you want to send QR codes to all participants? This will trigger sending messages to the registered participants (mock).
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                          <DialogClose asChild>
+                            <Button variant="ghost">Cancel</Button>
+                          </DialogClose>
+                          <DialogClose asChild>
+                            <Button
+                              className="bg-purple-600 hover:bg-purple-700 text-white"
+                              onClick={() =>
+                                toast({
+                                  title: "Send QR",
+                                  description:
+                                    "QR codes have been sent to participants (mock).",
+                                })
+                              }
+                            >
+                              Confirm
+                            </Button>
+                          </DialogClose>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               </CardHeader>
