@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImagineX Event Invitation - QR Code</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        #qrcode {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        .event-info {
+            background: linear-gradient(135deg, #667eea15, #764ba215);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .event-info h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin: 0 0 10px 0;
+        }
+        .event-info p {
+            color: #444;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .url {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            color: #667eea;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 20px 0;
+        }
+        .instructions {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.05);
+        }
+        .button:active {
+            transform: scale(0.95);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 ImagineX Event Invitation</h1>
+        <p class="subtitle">Scan this QR code to view the event invitation</p>
+        
+        <div id="qrcode"></div>
+        
+        <div class="event-info">
+            <h2>Summer Music Festival 2025</h2>
+            <p><strong>📅 Date:</strong> October 24, 2025</p>
+            <p><strong>📍 Location:</strong> Riverside Arena, Los Angeles, CA</p>
+            <p><strong>👥 Expected Attendees:</strong> 2,500+</p>
+        </div>
+        
+        <div class="url" id="invitationUrl">http://localhost:3000/invite/5</div>
+        
+        <div>
+            <button class="button" onclick="downloadQR()">💾 Download QR Code</button>
+            <a class="button" href="http://localhost:3000/invite/5" target="_blank">🔗 Open Invitation</a>
+        </div>
+        
+        <div class="instructions">
+            <strong>📱 How to use:</strong><br>
+            1. Scan the QR code with your phone camera<br>
+            2. View the beautiful event invitation<br>
+            3. Click "Register for this Event"<br>
+            4. Receive confirmation message<br><br>
+            
+            <strong>🖥️ For Development:</strong><br>
+            • Make sure your app is running on localhost:3000<br>
+            • Access QR Generator at: <a href="http://localhost:3000/qr-generator" style="color: #667eea;">http://localhost:3000/qr-generator</a><br>
+            • Generate QR codes for any event in your system
+        </div>
+    </div>
+
+    <script>
+        // Generate QR Code
+        const url = "http://localhost:3000/invite/5";
+        new QRCode(document.getElementById("qrcode"), {
+            text: url,
+            width: 256,
+            height: 256,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // Download QR Code as image
+        function downloadQR() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                const url = canvas.toDataURL("image/png");
+                const link = document.createElement('a');
+                link.download = 'imaginex-event-qr-code.png';
+                link.href = url;
+                link.click();
+            } else {
+                const img = document.querySelector('#qrcode img');
+                if (img) {
+                    const link = document.createElement('a');
+                    link.download = 'imaginex-event-qr-code.png';
+                    link.href = img.src;
+                    link.click();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
