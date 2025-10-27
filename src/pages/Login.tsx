@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn, UserPlus } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -9,22 +9,50 @@ import logo from "../assets/logo.jpg";
 
 export default function Login() {
   const navigate = useNavigate();
+  const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [signUpError, setSignUpError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Simulate login process
     setTimeout(() => {
       console.log("Login attempt:", { email, password });
       setIsLoading(false);
       // Navigate to dashboard after successful login
       navigate("/");
-    }, 1000);
+    }, 800);
+  };
+
+  const handleSignUpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSignUpError(null);
+
+    if (!email || !password || !confirmPassword) {
+      setSignUpError("Please fill all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setSignUpError("Passwords do not match.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate sign-up process
+    setTimeout(() => {
+      console.log("Sign up attempt:", { email, password });
+      setIsLoading(false);
+      // Navigate to dashboard after successful sign up
+      navigate("/");
+    }, 800);
   };
 
   return (
@@ -58,7 +86,7 @@ export default function Login() {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={isSignUp ? handleSignUpSubmit : handleLoginSubmit} className="space-y-6">
             {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground">
@@ -104,47 +132,97 @@ export default function Login() {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="remember"
-                  className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0 cursor-pointer"
+            {/* Confirm Password for Sign Up */}
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword" className="text-foreground">
+                  Confirm Password
+                </Label>
+                <Input
+                  id="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Re-enter your password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required={isSignUp}
+                  className="h-11 pr-10 bg-background/50 border-border focus:border-primary transition-colors"
                 />
-                <label htmlFor="remember" className="text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
-                  Remember me
-                </label>
               </div>
-              <button
-                type="button"
-                className="text-primary hover:text-primary-glow transition-colors font-medium"
-              >
-                Forgot password?
-              </button>
-            </div>
+            )}
 
-            {/* Login Button */}
+            {/* Remember Me & Forgot Password (only for sign-in) */}
+            {!isSignUp && (
+              <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0 cursor-pointer"
+                  />
+                  <label htmlFor="remember" className="text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
+                    Remember me
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  className="text-primary hover:text-primary-glow transition-colors font-medium"
+                >
+                  Forgot password?
+                </button>
+              </div>
+            )}
+
+            {/* Submit Button */}
             <Button
               type="submit"
               className="w-full h-11 bg-gradient-to-r from-primary to-primary-glow hover:opacity-90 transition-opacity shadow-lg shadow-primary/25"
-              disabled={isLoading}
+              disabled={isLoading || (isSignUp ? !email || !password || !confirmPassword || password !== confirmPassword : !email || !password)}
             >
               {isLoading ? (
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                  <span>Signing in...</span>
+                  <span>{isSignUp ? "Creating account..." : "Signing in..."}</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <LogIn className="h-4 w-4" />
-                  <span>Sign In</span>
+                  {isSignUp ? <UserPlus className="h-4 w-4" /> : <LogIn className="h-4 w-4" />}
+                  <span>{isSignUp ? "Sign Up" : "Sign In"}</span>
                 </div>
               )}
             </Button>
+            {signUpError && isSignUp && (
+              <p className="text-sm text-destructive mt-1">{signUpError}</p>
+            )}
           </form>
 
-          
+          {/* Toggle link */}
+          <div className="mt-4 text-center">
+            {!isSignUp ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSignUp(true);
+                  setSignUpError(null);
+                  setConfirmPassword("");
+                }}
+                className="text-primary hover:text-primary-glow transition-colors font-medium"
+              >
+                Create a new account? <span className="text-primary-glow">Sign up</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSignUp(false);
+                  setSignUpError(null);
+                }}
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+              >
+                Already have an Account? <span className="text-primary-glow">Sign in</span>
+              </button>
+            )}
+          </div>
+
         </CardContent>
       </Card>
 
