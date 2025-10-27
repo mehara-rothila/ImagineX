@@ -16,6 +16,25 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Simulated authorization: create a tiny token and store user info in localStorage.
+   * Returns the token string or null on error.
+   */
+  const authorizeUser = (email: string): string | null => {
+    try {
+      // a small, non-secure token for demo purposes only
+      const token = typeof btoa === "function" ? btoa(`${email}:${Date.now()}`) : `${email}:${Date.now()}`;
+      const user = { email, token, authorizedAt: new Date().toISOString() };
+      localStorage.setItem("imagine_user", JSON.stringify(user));
+      // also keep a simple boolean flag for quick checks
+      localStorage.setItem("isAuthorized", "true");
+      return token;
+    } catch (err) {
+      console.error("authorizeUser error:", err);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -32,10 +51,17 @@ export default function Signup() {
 
     setIsLoading(true);
 
+    // Simulate network call / account creation
     setTimeout(() => {
       console.log("Sign up attempt:", { email, password });
+      const token = authorizeUser(email);
       setIsLoading(false);
-      navigate("/");
+      if (token) {
+        // user is authorized; go to dashboard
+        navigate("/");
+      } else {
+        setError("Failed to authorize user. Please try again.");
+      }
     }, 800);
   };
 
