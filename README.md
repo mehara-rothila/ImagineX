@@ -75,10 +75,51 @@ Three UI screens designed (based on Figma prototype):
 
 ---
 
+## 🚀 How to Run
+
+### Installation Steps
+
+1. **Clone the Repository**
+```bash
+   git clone https://github.com/your-username/qr-event-management-frontend.git
+```
+
+2. **Navigate to Project Directory**
+```bash
+   cd ImagineX
+```
+
+3. **Install Dependencies**
+```bash
+   npm install
+```
+
+4. **Start the Development Server**
+```bash
+   npm start
+```
+
+5. **Open in Browser**  
+   The application will automatically open in your default browser at:
+```
+   http://localhost:3000
+```
+
+### Build for Production
+
+To create an optimized production build:
+```bash
+npm run build
+```
+
+The build folder will contain the production-ready files.
+
+---
+
 ## 🧩 Project Structure
 
 ```
-QR-Event-Management-Frontend/
+ImagineX/
 ├── public/
 │   ├── assets/
 │   └── index.html
