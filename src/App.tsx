@@ -17,6 +17,7 @@ import Feedback from "./pages/Feedback";
 import Report from "./pages/Report";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import EventInvitation from "./pages/EventInvitation";
 import EventRegistration from "./pages/EventRegistration";
 import QRCodeGenerator from "./pages/QRCodeGenerator";
@@ -26,14 +27,15 @@ const queryClient = new QueryClient();
 
 const AppLayout = () => {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
+  const isAuthPage = ["/login", "/signup"].includes(location.pathname);
   const isInvitePage = location.pathname.startsWith("/invite");
   const isRegisterPage = location.pathname.startsWith("/register");
 
-  if (isLoginPage || isInvitePage || isRegisterPage) {
+  if (isAuthPage || isInvitePage || isRegisterPage) {
     return (
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/invite/:eventId" element={<EventInvitation />} />
         <Route path="/register/:eventId" element={<EventRegistration />} />
       </Routes>
