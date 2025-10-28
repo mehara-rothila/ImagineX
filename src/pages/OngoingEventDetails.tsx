@@ -211,20 +211,20 @@ export default function OngoingEventDetails() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">
                       {event.attendeesCount}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Current Attendees
+                      Total Registered
                     </div>
                   </div>
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">
-                      {event.participants.length}
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <div className="text-2xl font-bold text-blue-600">
+                      {event.participants.filter(p => p.checkedIn).length}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      Registered Participants
+                      Checked-In Attendees
                     </div>
                   </div>
                   <div className="text-center p-4 bg-purple-50 rounded-lg">
@@ -245,9 +245,18 @@ export default function OngoingEventDetails() {
             {/* Participants */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Users className="mr-2 h-5 w-5" />
-                  Active Participants ({event.participants.length})
+                <CardTitle className="flex items-center justify-between">
+                  <span className="flex items-center">
+                    <Users className="mr-2 h-5 w-5" />
+                    Sample Participants ({event.participants.length} of {event.attendeesCount})
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={() => navigate(`/ongoing/${eventId}/participants`)}
+                    className="bg-purple-600 hover:bg-purple-700"
+                  >
+                    View All
+                  </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>

@@ -11,6 +11,7 @@ import UpcomingEvents from "./pages/UpcomingEvents";
 import UpcomingEventDetails from "./pages/UpcomingEventDetails";
 import OngoingEvents from "./pages/OngoingEvents";
 import OngoingEventDetails from "./pages/OngoingEventDetails";
+import ParticipantsList from "./pages/ParticipantsList";
 import PastEvents from "./pages/PastEvents";
 import EventDetails from "./pages/EventDetails";
 import Feedback from "./pages/Feedback";
@@ -54,6 +55,7 @@ const AppLayout = () => {
             <Route path="/upcoming/:eventId" element={<UpcomingEventDetails />} />
             <Route path="/ongoing" element={<OngoingEvents />} />
             <Route path="/ongoing/:eventId" element={<OngoingEventDetails />} />
+            <Route path="/ongoing/:eventId/participants" element={<ParticipantsList />} />
             <Route path="/past" element={<PastEvents />} />
             <Route path="/past/:eventId" element={<EventDetails />} />
             <Route path="/past/:eventId/feedback" element={<Feedback />} />
