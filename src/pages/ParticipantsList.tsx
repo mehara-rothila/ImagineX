@@ -68,7 +68,6 @@ export default function ParticipantsList() {
   });
 
   const checkedInCount = event.participants.filter((p) => p.checkedIn).length;
-  const notCheckedInCount = event.participants.length - checkedInCount;
 
   return (
     <div className="flex-1 overflow-auto">
